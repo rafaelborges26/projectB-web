@@ -1,0 +1,196 @@
+body{
+  margin: 0;
+  padding: 0;
+}
+
+header {
+  background-color: #E0E0E0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  width: 100%;
+  height: 80px;
+  padding: 0 200px;
+}
+
+
+header .containerIcon {
+  display: flex;
+  
+}
+
+header .optionsMenu {
+  display: flex;
+  background-color: #fff;
+  height: 40px;
+}
+
+header .iconMenu {
+  display: none;
+}
+
+header h2 {
+
+  font-family: 'Lato', sans-serif;
+  color: #333;
+  margin-left: 10px;
+
+  
+}
+
+header button {
+  font-family: 'Lato', sans-serif;
+  font-size: 16px;
+  line-height: 19px;
+  cursor: pointer;
+
+  margin: 5px;
+  border: none;
+  background-color: #fff;
+}
+
+header button:last-of-type {
+  border-left: 1px solid #000;
+  padding-left: 10px;
+}
+
+
+main {
+  background-color: #fff;
+  width: 100%;
+  display: flex;
+
+  margin-top: 25px;
+}
+
+main .newTransaction {
+  flex: 0.5;
+  height: 340px;
+  width: 400px;
+  
+  display: flex;
+  padding-left: 12%;
+  margin-right: 20px;
+
+}
+
+main .extractTransaction {
+  flex: 1.5;
+  display: flex;
+  flex-direction: column;
+  
+
+  padding-right: 12%;
+}
+
+main .modalTransaction {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 400px;
+  width: 400px;
+
+  border: 1px solid #979797;
+  border-radius: 4px;
+}
+
+main .modalTransaction form {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+}
+
+main h4 {
+  font-size: 18px;
+  line-height: 22px;
+  color: #000;
+  font-weight: 700;
+  font-family: 'Lato', sans-serif;
+  text-align: center;
+
+  margin: 0 0 20px 0;
+}
+
+.modalTransaction label {
+  font-size: 16px;
+  color: #333;
+  font-weight: 400;
+  font-family: 'Lato', sans-serif;
+  font-size: 14px;
+  line-height: 22px;
+
+  color: #333;
+}
+
+.modalTransaction select {
+  
+  background: #FFFFFF;
+  color: #333;
+  border: 1px solid #979797;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  font-size: 14px;
+  margin-bottom: 20px;
+  padding: 8px;
+}
+
+.modalTransaction input {
+  
+  background: #FFFFFF;
+  color: #333;
+  border: 1px solid #979797;
+  box-sizing: border-box;
+  border-radius: 4px;
+
+  font-size: 14px;
+  margin-bottom: 20px;
+  padding: 8px;
+}
+
+.modalTransaction button { 
+  height: 32px;
+  color: #fff;
+  background: #333;
+}
+
+.extractTransaction table thead {
+  text-align: left;
+}
+
+.extractTransaction table td {
+  border-bottom: 1px solid #979797;
+  padding: 6px 0;
+}
+
+.extractTransaction table tr {
+  border-bottom: 1px solid #979797;
+}
+
+.extractTransaction table th {
+  border-bottom: 1px solid #979797;
+}
+
+@media (max-width: 768px) {
+  
+  header {
+    padding: 0;
+  }
+
+  header .containerIcon {
+    width: inherit;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 30px;
+  }
+  
+  header .optionsMenu {
+    display: none;
+  }
+
+  header .iconMenu {
+    display: flex;
+  }
+}
