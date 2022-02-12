@@ -7,15 +7,16 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,300&family=Roboto&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./src/css/style.css">
     <title>Controle fianceiro</title>
 </head>
 <body>
     <header>
         <div class="containerIcon">
-                <img src="./src//assets/logo.svg" alt="logo da página">
+                <img src="./assets/logo.svg" alt="logo da página">
             <h2>Controle financeiro</h2>
-               <img class="iconMenu" src="./src//assets/menu.svg" alt="menu de opções">
+            <button id="iconMenu">
+                <img src="./assets/menu.svg" alt="menu de opções">
+            </button>
         </div>
 
         <div class="optionsMenu">
@@ -92,15 +93,15 @@
         </div>
         
     </main>
-    <div class="menu">
+    <div id="menu">
         <div class="header">
-            <button>
-                <img name="closeIcon" src="./src//assets/close.svg" alt="Fechar">
+            <button id="closeMenu">
+                <img name="closeIcon" src="./assets/close.svg" alt="Fechar">
             </button>
             
         </div>
 
-        <div class="content">
+        <div id="content">
             <div class="containerBtnLimpar">
                 <button>Limpar dados</button>
             </div>

@@ -15,7 +15,20 @@ module.exports = {
     },
     module: {
         rules: [
-            { test: /\.css$/, use: [MiniCssExtractPlugin.loader, 'css-loader', 'style-loader'], exclude: /node_modules/ },
+            { test: /\.css$/, use: [MiniCssExtractPlugin.loader, 'css-loader'] },
+                {
+                  test: /\.(jpe?g|png|gif|svg)$/i,
+                  use: [
+                    {
+                      loader: "file-loader",
+                      options: {
+                        name: "[name].[ext]",
+                        outputPath: "assets/",
+                        publicPath: "/src/assets/"
+                      }
+                    }
+                  ]
+                }
         ],
     },
     optimization: {
@@ -28,7 +41,7 @@ module.exports = {
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: './app/index.html',
+            template: './app/src/app.html',
             filename: 'index.html',
             hash: true,
         }),

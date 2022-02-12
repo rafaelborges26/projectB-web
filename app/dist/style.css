@@ -28,7 +28,7 @@ header .optionsMenu {
   height: 40px;
 }
 
-header .iconMenu {
+header #iconMenu {
   display: none;
 }
 
@@ -55,7 +55,7 @@ header button:last-of-type {
   padding-left: 10px;
 }
 
-.menu {
+#menu {
   display: none;
 }
 
@@ -200,22 +200,25 @@ main h4 {
 
 @media (max-width: 768px) {
 
-  .menu {
+  #menu {
     position: absolute;
     top: 0;
     width: 35%;
     height: 100vh;
     right: 0;
     background: #333;
-    /*display: block; Quando tiver js */
+
+    display: block;
+    z-index: 2;
+    /*transition: max-width 0.5s; */
 
   }
 
-  .menu .header {
+  #menu .header {
     margin: 10px 0 0 10px;
   }
 
-  .menu .header button {
+  #menu .header button {
     font-size: 16px;
     line-height: 19px;
     cursor: pointer;
@@ -230,7 +233,7 @@ main h4 {
     line-height: 19px;
   }
 
-  .menu .content button {
+  #menu #content button {
     font-size: 16px;
     line-height: 19px;
     cursor: pointer;
@@ -239,11 +242,11 @@ main h4 {
     margin: 5px;
     border: none;
     background-color: transparent;
-    justify-content: center;:
+    justify-content: center;
   }
 
 
-  .menu .content {
+  #menu #content {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -251,7 +254,7 @@ main h4 {
     align-items: end;
   }
 
-  .menu .content button {
+  #menu #content button {
     
     display: flex;
     justify-content: flex-end;
@@ -266,6 +269,7 @@ main h4 {
     width: inherit;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     padding: 0 30px;
   }
   
@@ -273,8 +277,11 @@ main h4 {
     display: none;
   }
 
-  header .iconMenu {
+  header #iconMenu {
     display: flex;
+
+    background-color: transparent;
+    border: none;
   }
 
   main {
@@ -338,7 +345,7 @@ main h4 {
 
 @media (max-width: 411px) {
   
-    .menu {
+    #menu {
       position: absolute;
       top: 0;
       width: 80%;

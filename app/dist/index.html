@@ -1,1 +1,114 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,300&family=Roboto&display=swap" rel="stylesheet"><link rel="stylesheet" href="./src/styles/style.css"><title>Controle fianceiro</title><script defer="defer" src="bundle.js?fa5a7635aaf623c45b9e"></script></head><body><header><div class="containerIcon"><img src="./src//assets/logo.svg" alt="logo da página"><h2>Controle financeiro</h2><img class="iconMenu" src="./src//assets/menu.svg" alt="menu de opções"></div><div class="optionsMenu"><button type="button">Limpar dados</button> <button type="button">Cadastro de transações</button></div></header><main><div class="newTransaction"><div class="modalTransaction"><h4>Nova transação</h4><form action="" method="post"><div class="transactionContainerFields"><div class="typeTransaction"><label for="">Tipo de transação</label> <select type="text" name="totalTransaction" id="totalTransaction" placeholder="Compra"><option key="buy" value="buy">Compra</option><option key="sell" value="sell">Venda</option></select></div><div class="nameTransaction"><label for="">Nome da mercadoria</label> <input name="nameMerchadise" id="nameMerchadise" placeholder="Input"></div><div class="valueTransaction"><label for="">Valor</label> <input name="totalTransaction" id="totalTransaction" placeholder="R$ 0,00"></div></div><button type="submit">Adicionar transação</button></form></div></div><div class="extractTransaction"><h4>Extrato de transações</h4><table><thead><tr><th>Mercadoria</th><th>Valor</th></tr></thead><tbody><tr><td>+ Lorem ipsum dolor sit amet consectetur</td><td>12.999,99</td></tr><tr><td>- Quis nostrud exercitation</td><td>R$ 99,99</td></tr><tr><td>+ Lorem ipsum</td><td>R$ 99,99</td></tr><tr><td class="total">Total</td><td class="total">R$ 99,99<p>[LUCRO]</p></td></tr></tbody></table></div></main><div class="menu"><div class="header"><button><img name="closeIcon" src="./src//assets/close.svg" alt="Fechar"></button></div><div class="content"><div class="containerBtnLimpar"><button>Limpar dados</button></div><div class="containerBtnCadastro"></div><button>Cadastro de transações</button></div></div></body></html>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,300&family=Roboto&display=swap" rel="stylesheet">
+    <title>Controle fianceiro</title>
+<script defer src="bundle.js?95baed3ec99196608909"></script><link href="style.css?95baed3ec99196608909" rel="stylesheet"></head>
+<body>
+    <header>
+        <div class="containerIcon">
+                <img src="./assets/logo.svg" alt="logo da página">
+            <h2>Controle financeiro</h2>
+            <button id="iconMenu">
+                <img src="./assets/menu.svg" alt="menu de opções">
+            </button>
+        </div>
+
+        <div class="optionsMenu">
+            <button type="button">Limpar dados</button>
+            <button type="button">Cadastro de transações</button>
+        </div>
+    </header>
+    <main>
+        <div class="newTransaction">
+            
+            <div class="modalTransaction">
+                <h4>Nova transação</h4>
+
+                <form action="" method="post">
+                
+                <div class="transactionContainerFields">
+                    <div class="typeTransaction">
+                        <label for="">Tipo de transação</label>
+                        <select type="text" name="totalTransaction" id="totalTransaction" placeholder="Compra">
+                            <option key="buy" value="buy">Compra</option>
+                            <option key="sell" value="sell">Venda</option>
+                        </select>
+                    </div>
+
+                    <div class="nameTransaction">
+                        <label for="">Nome da mercadoria</label>
+                        <input type="text" name="nameMerchadise" id="nameMerchadise" placeholder="Input">
+                    </div>
+
+                    <div class="valueTransaction">
+                        <label for="">Valor</label>
+                        <input type="text" name="totalTransaction" id="totalTransaction" placeholder="R$ 0,00">
+                    </div>
+                </div>
+
+                <button type="submit">Adicionar transação</button>
+                </form>
+
+            </div>
+
+        </div>
+        <div class="extractTransaction">
+            <h4>Extrato de transações</h4>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mercadoria</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>+ Lorem ipsum dolor sit amet consectetur</td>
+                        <td>12.999,99</td>
+                    </tr>
+                    <tr>
+                        <td>- Quis nostrud exercitation</td>
+                        <td>R$ 99,99</td>
+                    </tr>
+                    <tr >
+                        <td>+ Lorem ipsum</td>
+                        <td>R$ 99,99</td>
+                    </tr>
+                        
+                            <tr >
+                        <td class="total">Total</td>
+                        <td class="total">R$ 99,99 <p>[LUCRO]</p></td>
+                            </tr>
+                        
+                    
+                </tbody>
+            </table>
+        </div>
+        
+    </main>
+    <div id="menu">
+        <div class="header">
+            <button id="closeMenu">
+                <img name="closeIcon" src="./assets/close.svg" alt="Fechar">
+            </button>
+            
+        </div>
+
+        <div id="content">
+            <div class="containerBtnLimpar">
+                <button>Limpar dados</button>
+            </div>
+            <div class="containerBtnCadastro"></div>
+                <button>Cadastro de transações</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
