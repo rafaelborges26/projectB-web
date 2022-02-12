@@ -15,19 +15,17 @@ module.exports = {
     },
     module: {
         rules: [
-            { test: /\.css$/,
-              use: ['style-loader', 'css-loader'],              
-              exclude: /node_modules/ },
+            { test: /\.css$/, use: [MiniCssExtractPlugin.loader, 'css-loader', 'style-loader'], exclude: /node_modules/ },
         ],
     },
-    //optimization: {
-    //    minimizer: true,
-    //    minimizer: [
-    //        new TerserPlugin(),
-    //        new CssMinimizerWebpackPlugin(),
-    //        '...',
-    //    ],
-    //},
+    optimization: {
+        minimizer: true,
+        minimizer: [
+            new TerserPlugin(),
+            new CssMinimizerWebpackPlugin(),
+            '...',
+        ],
+    },
     plugins: [
         new HtmlWebpackPlugin({
             template: './app/index.html',
