@@ -19,6 +19,7 @@ header {
 
 header .containerIcon {
   display: flex;
+  align-items: center;
   
 }
 
@@ -276,8 +277,11 @@ main h4 {
     border: none;
     align-items: center;
     background: transparent;
-    
+  }
 
+  header button:last-of-type {
+    border: none;
+    padding: 0px;
   }
 
   main {
