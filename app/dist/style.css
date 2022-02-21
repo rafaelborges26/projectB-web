@@ -3,10 +3,10 @@ body{
   padding: 0;
   width: 100%;
   height: 100%;
-  position: relative;
 }
 
 header {
+  position: relative;
   background-color: #E0E0E0;
   display: flex;
   justify-content: space-evenly;
@@ -19,6 +19,7 @@ header {
 
 header .containerIcon {
   display: flex;
+  align-items: center;
   
 }
 
@@ -60,6 +61,7 @@ header button:last-of-type {
 }
 
 main {
+  position: relative;
   background-color: #fff;
   
   display: flex;
@@ -78,7 +80,32 @@ main .newTransaction {
 main .newTransaction .transactionContainerFields :is(.typeTransaction, .nameTransaction, .valueTransaction) {
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
 }
+
+main .newTransaction :is( .errorName, .errorValue) {
+  padding-top: 10px;
+  display: none;
+  justify-content: center;
+  align-items: center;
+
+  color: #ff0000;
+  height: 20px;
+}
+
+main .newTransaction :is(.errorName, .errorValue) span {
+    font-size: 16px;
+    line-height: 20px;
+    font-weight: 400;
+    font-family: 'Lato', sans-serif;
+
+    margin-right: 6px;
+}
+
+main .newTransaction :is(.errorName, .errorValue) img {
+  height: 26px;
+}
+
 
 main .extractTransaction {
   flex: 1.5;
@@ -139,7 +166,6 @@ main h4 {
   border-radius: 4px;
 
   font-size: 14px;
-  margin-bottom: 20px;
   padding: 8px;
 }
 
@@ -152,7 +178,6 @@ main h4 {
   border-radius: 4px;
 
   font-size: 14px;
-  margin-bottom: 20px;
   padding: 8px;
 }
 
@@ -207,11 +232,6 @@ main h4 {
     height: 100vh;
     right: 0;
     background: #333;
-
-    display: block;
-    z-index: 2;
-    /*transition: max-width 0.5s; */
-
   }
 
   #menu .header {
@@ -269,7 +289,6 @@ main h4 {
     width: inherit;
     display: flex;
     justify-content: space-between;
-    align-items: center;
     padding: 0 30px;
   }
   
@@ -279,9 +298,14 @@ main h4 {
 
   header #iconMenu {
     display: flex;
-
-    background-color: transparent;
     border: none;
+    align-items: center;
+    background: transparent;
+  }
+
+  header button:last-of-type {
+    border: none;
+    padding: 0px;
   }
 
   main {
@@ -306,12 +330,11 @@ main h4 {
 
   main .modalTransaction {
     width: 90%;
-    height: 190px;
+    height: 220px;
   }
 
   .modalTransaction .transactionContainerFields {
     display: flex;
-    align-items: center;
     justify-content: center;
   }
 
@@ -397,6 +420,7 @@ main h4 {
     flex-direction: column;
     align-items: baseline;
     justify-content: center;
+    margin-bottom: 20px;
     
     width: 100%;
   }

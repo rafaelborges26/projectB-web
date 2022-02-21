@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,300&family=Roboto&display=swap" rel="stylesheet">
     <title>Controle fianceiro</title>
+    <script src="js/app.js" ></script>
 </head>
 <body>
     <header>
@@ -30,7 +31,7 @@
             <div class="modalTransaction">
                 <h4>Nova transação</h4>
 
-                <form action="" method="post">
+                <form>
                 
                 <div class="transactionContainerFields">
                     <div class="typeTransaction">
@@ -43,16 +44,27 @@
 
                     <div class="nameTransaction">
                         <label for="">Nome da mercadoria</label>
-                        <input type="text" name="nameMerchadise" id="nameMerchadise" placeholder="Input">
+                        <input type="text"  name="nameMerchadise" id="nameMerchadise" placeholder="Input">
+                        <div class="errorName">
+                            <span class="errorNameText"></span>
+                            <img src="./assets/error.svg" alt="erro no preenchimento do nome">
+
+                        </div>
                     </div>
 
                     <div class="valueTransaction">
                         <label for="">Valor</label>
-                        <input type="text" name="totalTransaction" id="totalTransaction" placeholder="R$ 0,00">
+                        <input type="text" name="valueTransaction" id="valueTransaction" placeholder="R$ 0,00">
+                        <div class="errorValue">
+                            <span class="errorValueText"></span>
+                            <img src="./assets/error.svg" alt="erro no preenchimento do valor">
+                        </div>
                     </div>
                 </div>
 
-                <button type="submit">Adicionar transação</button>
+                <button id="btnAddTransaction" type="button">
+                    Adicionar transação
+                </button>
                 </form>
 
             </div>
