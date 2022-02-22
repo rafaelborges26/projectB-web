@@ -2,6 +2,7 @@
 const showMenu = document.getElementById('iconMenu')
 const hideMenu = document.getElementById('closeMenu')
 const addNewTransactionButton = document.getElementById('btnAddTransaction')
+const deleteTransactionsButton = document.getElementById('buttonClearMobile')
 
 const inputName = document.getElementById('nameMerchadise')
 const inputValue = document.getElementById('valueTransaction')
@@ -16,6 +17,7 @@ import '../assets/logo.svg'
 import '../assets/error.svg'
 
 let transactions = null
+let transactionsFields = []
 
 function handleShowMenu() {
     document.getElementById('menu').style.display = 'block'
@@ -53,9 +55,9 @@ function validationFields() {
     const valueNumberFormatedNumber = Number(valueNumber.replace(',', '.'))
 
     if(transactions) {
-        console.log("atualizar")
+        updateTable(nameTransaction, valueNumberFormatedNumber, selectTransaction)
     } else {
-        apiPostTable(nameTransaction, valueNumberFormatedNumber, selectTransaction)
+        insertTable(nameTransaction, valueNumberFormatedNumber, selectTransaction)
     }
 }
 
@@ -102,7 +104,7 @@ function onSelectValue() {
     document.getElementById('valueTransaction').style.borderColor = '#979797'
 }
 
-async function apiPostTable(name, value, type) {
+async function insertTable(name, value, type) {
 
     await fetch("https://api.airtable.com/v0/appRNtYLglpPhv2QD/Historico",
     {
@@ -135,6 +137,66 @@ async function apiPostTable(name, value, type) {
         return response.json()
     })
     .then(json => console.log(json))
+
+    location.reload();
+}
+
+async function deleteTable() {
+
+    await fetch("https://api.airtable.com/v0/appRNtYLglpPhv2QD/Historico",
+    {
+        method: 'DELETE',
+        headers: {
+            Authorization: "Bearer key2CwkHb0CKumjuM",
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+            {
+                records: [transactions.id]
+            }
+        )
+    }
+    )
+    .then(response => {
+        return response.json()
+    })
+    .then(json => console.log(json))
+
+    //location.reload();
+}
+
+async function updateTable(name, value, type) {
+
+    transactionsFields.push({type, name, value})
+
+    await fetch("https://api.airtable.com/v0/appRNtYLglpPhv2QD/Historico",
+    {
+        method: 'PATCH',
+        headers: {
+            Authorization: "Bearer key2CwkHb0CKumjuM",
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+            {
+                records: [
+                    {
+                        id: transactions.id,
+                        fields: {
+                            Responsavel: '9817',
+                            Json: JSON.stringify(transactionsFields)
+                        }
+                    }
+                ]
+            }
+        )
+    }
+    )
+    .then(response => {
+        return response.json()
+    })
+    .then(json => console.log(json))
+
+    location.reload();
 }
 
 async function getApiListTransaction() {
@@ -150,10 +212,10 @@ async function getApiListTransaction() {
  return response.json()
 }).then(json => transactions =  json.records[0])
 
-const transactionsFiltered = JSON.parse(transactions.fields.Json)
+transactionsFields = JSON.parse(transactions.fields.Json)
 
 
-setTableTransactions(transactionsFiltered)
+setTableTransactions(transactionsFields)
 
 
 }
@@ -161,8 +223,6 @@ setTableTransactions(transactionsFiltered)
 async function setTableTransactions(allTransactions) {
 
     let totalTransaction = 0
-
-    console.log(allTransactions)
 
     await allTransactions.forEach(transaction => {
 
@@ -181,7 +241,7 @@ async function setTableTransactions(allTransactions) {
         elementTr.append(elementTdValue)
 
         elementTdName.innerHTML = transaction.name
-        elementTdValue.innerHTML = transaction.value.toLocaleString('pt-br', {minimumFractionDigits: 2})
+        elementTdValue.innerHTML = transaction.type + " " + transaction.value.toLocaleString('pt-br', {minimumFractionDigits: 2})
 
         tbodyTable.prepend(elementTr)
 
@@ -192,14 +252,11 @@ async function setTableTransactions(allTransactions) {
 
 }
 
-
 getApiListTransaction()
 
 
-if(window.screen.width <= 768) {
-    showMenu.addEventListener('click', handleShowMenu );
-    hideMenu.addEventListener('click', handleHideMenu );
-}
+showMenu.addEventListener('click', handleShowMenu );
+hideMenu.addEventListener('click', handleHideMenu );
 
 addNewTransactionButton.addEventListener('click', validationFields);
 
@@ -209,4 +266,5 @@ inputValue.addEventListener('keyup', validationValueField )
 
 inputName.addEventListener('click', onSelectName )
 
+deleteTransactionsButton.addEventListener('click', deleteTable)
 
