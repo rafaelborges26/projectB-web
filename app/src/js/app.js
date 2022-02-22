@@ -6,12 +6,16 @@ const addNewTransactionButton = document.getElementById('btnAddTransaction')
 const inputName = document.getElementById('nameMerchadise')
 const inputValue = document.getElementById('valueTransaction')
 
+const tbodyTable = document.getElementById('transactionTable')
+const tdTotalValue = document.getElementById('totalValue')
 
 import '../styles/style.css'
 import '../assets/close.svg'
 import '../assets/menu.svg'
 import '../assets/logo.svg'
 import '../assets/error.svg'
+
+let transactions = []
 
 function handleShowMenu() {
     document.getElementById('menu').style.display = 'block'
@@ -40,7 +44,7 @@ function validationFields() {
         return;
     }
 
-    addTransaction()
+    //apiGetAirTable()
 }
 
 function validationValueField() {
@@ -80,17 +84,69 @@ function onSelectValue() {
     document.getElementById('valueTransaction').style.borderColor = '#979797'
 }
 
-function addTransaction() {
+async function getApiListTransaction() {
+    
+    await fetch("https://api.airtable.com/v0/appRNtYLglpPhv2QD/Historico?filterByFormula="+ encodeURI("({Responsavel} = '9817')"),
+ {
+     headers: {
+         Authorization: "Bearer key2CwkHb0CKumjuM"
+     },     
+ }
+)
+.then(response => {
+ return response.json()
+}).then(json => transactions =  json.records[0])
 
-    console.log("adicionado")
-    fetch('https://airtable.com/shrgRkjwA8uitAY3s')
-    .then(response => response.json()) //converter resposta pra json
-    .then(data => console.log(data))
+const transactionsFiltered = JSON.parse(transactions.fields.Json)
+
+
+setTableTransactions(transactionsFiltered)
+
+
+}
+
+async function setTableTransactions(allTransactions) {
+
+    let totalTransaction = 0
+
+    console.log(allTransactions)
+
+    await allTransactions.forEach(transaction => {
+
+        if(transaction.type === '-') {
+            totalTransaction -= transaction.value
+        } else if(transaction.type === '+') {
+            totalTransaction += transaction.value
+        }
+
+        const elementTr = document.createElement('tr')
+
+        const elementTdName = document.createElement('td')
+        const elementTdValue = document.createElement('td')
+        
+        elementTr.append(elementTdName)
+        elementTr.append(elementTdValue)
+
+        elementTdName.innerHTML = transaction.name
+        elementTdValue.innerHTML = transaction.value
+
+        tbodyTable.prepend(elementTr)
+
+    });
+
+
+    tdTotalValue.prepend(totalTransaction)    
+
 }
 
 
-showMenu.addEventListener('click', handleShowMenu );
-hideMenu.addEventListener('click', handleHideMenu );
+getApiListTransaction()
+
+
+if(window.screen.width <= 768) {
+    showMenu.addEventListener('click', handleShowMenu );
+    hideMenu.addEventListener('click', handleHideMenu );
+}
 
 addNewTransactionButton.addEventListener('click', validationFields);
 

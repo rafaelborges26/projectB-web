@@ -197,7 +197,7 @@ main h4 {
   padding: 6px 0;
 }
 
-.extractTransaction table tbody .total td {
+.extractTransaction table tbody :is( .total, #totalValue) td {
   border-top: 1px solid #979797;
   padding: 6px 0;
 }
@@ -206,13 +206,13 @@ main h4 {
   border-bottom: 1px solid #979797;
 }
 
-.extractTransaction table tr .total {
+.extractTransaction table tr :is( .total, #totalValue) {
   border-top: 1px solid #979797;
   border-bottom: none;
   font-weight: 700;
 }
 
-.extractTransaction table tr .total p {
+.extractTransaction table tr :is( .total, #totalValue) p {
   font-weight: 300;
   font-size: 10px;
   line-height: 22px;
