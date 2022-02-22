@@ -15,7 +15,7 @@ import '../assets/menu.svg'
 import '../assets/logo.svg'
 import '../assets/error.svg'
 
-let transactions = []
+let transactions = null
 
 function handleShowMenu() {
     document.getElementById('menu').style.display = 'block'
@@ -31,31 +31,49 @@ function validationFields() {
     document.querySelector('.errorValue').style = 'display: none'
     document.getElementById('valueTransaction').style.borderColor = '#979797'
 
-    if ( document.getElementById('nameMerchadise').value == '') 
+    const nameTransaction = document.getElementById('nameMerchadise').value
+    const valueTransaction = document.getElementById('valueTransaction').value
+    const selectTransaction = document.getElementById('selectTransaction').value
+
+    if ( nameTransaction == '') 
     {
         document.getElementById('nameMerchadise').style.borderColor = '#ff0000'
         document.querySelector('.errorName').style = 'display: flex'
         document.querySelector('.errorNameText').innerHTML = 'O campo é obrigatório'
         return;
-    } else if(document.getElementById('valueTransaction').value == '') {
+    } else if(valueTransaction == '') {
         document.getElementById('valueTransaction').style.borderColor = '#ff0000'
         document.querySelector('.errorValue').style = 'display: flex'
         document.querySelector('.errorValueText').innerHTML = 'O campo é obrigatório'
         return;
     }
 
-    //apiGetAirTable()
+
+    const valueNumber = valueTransaction.replace('.', '')
+    const valueNumberFormatedNumber = Number(valueNumber.replace(',', '.'))
+
+    if(transactions) {
+        console.log("atualizar")
+    } else {
+        apiPostTable(nameTransaction, valueNumberFormatedNumber, selectTransaction)
+    }
 }
 
 function validationValueField() {
     console.log("testee")
-    console.log(isNaN(document.getElementById('valueTransaction').value))
-    console.log(document.getElementById('valueTransaction').value)
+
+    if(document.getElementById('valueTransaction').value.includes(',')){
+        return;
+    }
+    
     if(isNaN(document.getElementById('valueTransaction').value)) {
         document.getElementById('valueTransaction').style.borderColor = '#ff0000'
         document.querySelector('.errorValue').style = 'display: flex'
         document.querySelector('.errorValueText').innerHTML = 'O campo é numérico'
         document.getElementById('valueTransaction').value = ''
+    } else {
+        document.querySelector('.errorValue').style = 'display: none'
+        document.getElementById('valueTransaction').style.borderColor = '#979797'
     }
 }
 
@@ -82,6 +100,41 @@ function onSelectName() {
 function onSelectValue() {
     document.querySelector('.errorValue').style = 'display: none'
     document.getElementById('valueTransaction').style.borderColor = '#979797'
+}
+
+async function apiPostTable(name, value, type) {
+
+    await fetch("https://api.airtable.com/v0/appRNtYLglpPhv2QD/Historico",
+    {
+        method: 'POST',
+        headers: {
+            Authorization: "Bearer key2CwkHb0CKumjuM",
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(
+            {
+                records: [
+                    {
+                        fields: {
+                            Responsavel: '9817',
+                            Json: JSON.stringify([
+                                { 
+                                    type,
+                                    name,
+                                    value
+                                }
+                            ])
+                        }
+                    }
+                ]
+            }
+        )
+    }
+    )
+    .then(response => {
+        return response.json()
+    })
+    .then(json => console.log(json))
 }
 
 async function getApiListTransaction() {
@@ -128,14 +181,14 @@ async function setTableTransactions(allTransactions) {
         elementTr.append(elementTdValue)
 
         elementTdName.innerHTML = transaction.name
-        elementTdValue.innerHTML = transaction.value
+        elementTdValue.innerHTML = transaction.value.toLocaleString('pt-br', {minimumFractionDigits: 2})
 
         tbodyTable.prepend(elementTr)
 
     });
 
 
-    tdTotalValue.prepend(totalTransaction)    
+    tdTotalValue.prepend(totalTransaction.toLocaleString('pt-br', {minimumFractionDigits: 2}))    
 
 }
 
