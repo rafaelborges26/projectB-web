@@ -22,8 +22,8 @@
         </div>
 
         <div class="optionsMenu">
-            <button type="button">Limpar dados</button>
-            <button type="button">Cadastro de transações</button>
+            <button id="buttonClearDesktop" type="button">Limpar dados</button>
+            <button id="btnAddTransactionDesktop" type="button">Cadastro de transações</button>
         </div>
     </header>
     <main>
@@ -55,7 +55,7 @@
 
                     <div class="valueTransaction">
                         <label for="">Valor</label>
-                        <input type="text" name="valueTransaction" id="valueTransaction" placeholder="R$ 0,00">
+                        <input type="text" name="valueTransaction" id="valueTransaction" data-testid="inputValue" placeholder="R$ 0,00" onInput="mascaraMoeda(event);" >
                         <div class="errorValue">
                             <span class="errorValueText"></span>
                             <img src="./assets/error.svg" alt="erro no preenchimento do valor">
@@ -85,7 +85,7 @@
                     
                             <tr >
                         <td class="total">Total</td>
-                        <td id="totalValue"><p>[LUCRO]</p></td>
+                        <td id="totalValue"><p id="totalValueText" >[LUCRO]</p></td>
                             </tr>
                     
                 </tbody>
@@ -106,9 +106,29 @@
                 <button id="buttonClearMobile" type="button">Limpar dados</button>
             </div>
             <div class="containerBtnCadastro"></div>
-                <button>Cadastro de transações</button>
+                <button id="btnAddTransactionMobile" >Cadastro de transações</button>
             </div>
         </div>
     </div>
+
+    <script>        
+function mascaraMoeda(event) {
+  const onlyDigits = event.target.value
+    .split("")
+    .filter(s => /\d/.test(s))
+    .join("")
+    .padStart(3, "0")
+  const digitsFloat = onlyDigits.slice(0, -2) + "." + onlyDigits.slice(-2)
+  event.target.value = maskCurrency(digitsFloat)
+}
+
+function maskCurrency(valor, locale = 'pt-BR', currency = 'BRL') {
+  return new Intl.NumberFormat(locale, {
+    style: 'currency',
+    currency
+  }).format(valor)
+}
+    </script>
+
 </body>
 </html>
