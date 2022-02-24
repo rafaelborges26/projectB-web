@@ -102,7 +102,7 @@ export async function insertTable(name, value, type) {
 
 export async function deleteTable() {
 
-    const confirmed = confirm('Deseja realmente excluir todas as transaões?');
+    const confirmed = confirm('Deseja realmente excluir todas as transações?');
 
     if(confirmed) {
 
