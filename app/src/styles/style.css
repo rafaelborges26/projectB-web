@@ -452,6 +452,7 @@ main h4 {
 
   main .modalTransaction button {
     width: 98%;
+    margin: 0;
   }
 
   .modalTransaction .transactionContainerFields div {
