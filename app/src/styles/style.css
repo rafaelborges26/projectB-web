@@ -3,24 +3,33 @@ body {
   padding: 0;
   width: 100%;
   height: 100%;
+  font-family: 'Lato', sans-serif;
+  
 }
 
 header {
   position: relative;
   background-color: #E0E0E0;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-
-  width: 100%;
+  padding: 0 200px;
   height: 80px;
 }
 
+header h2 {
+  font-size: 20px;
+}
 
 header .containerIcon {
   display: flex;
   align-items: center;
   
+}
+
+header .containerIcon img {
+  width: 40px;
+  height: 37px;
 }
 
 header .optionsMenu {
@@ -34,14 +43,11 @@ header #iconMenu {
 }
 
 header h2 {
-
-  font-family: 'Lato', sans-serif;
   color: #333;
   margin-left: 10px;
 }
 
 header button {
-  font-family: 'Lato', sans-serif;
   font-size: 16px;
   line-height: 19px;
   cursor: pointer;
@@ -73,8 +79,12 @@ main .newTransaction {
   flex: 0.5;
   
   display: flex;
-  padding-left: 12%;
+  margin-left: 200px;
   margin-right: 20px;
+}
+
+main .newTransaction .transactionContainerFields {
+  width: 100%;
 }
 
 main .newTransaction .transactionContainerFields :is(.typeTransaction, .nameTransaction, .valueTransaction) {
@@ -97,7 +107,6 @@ main .newTransaction :is(.errorName, .errorValue) span {
     font-size: 16px;
     line-height: 20px;
     font-weight: 400;
-    font-family: 'Lato', sans-serif;
 
     margin-right: 6px;
 }
@@ -113,7 +122,7 @@ main .extractTransaction {
   flex-direction: column;
   
 
-  padding-right: 12%;
+  margin-right: 200px;
 }
 
 main .modalTransaction {
@@ -140,7 +149,6 @@ main h4 {
   line-height: 22px;
   color: #000;
   font-weight: 700;
-  font-family: 'Lato', sans-serif;
   text-align: center;
 
   margin: 0 0 20px 0;
@@ -150,7 +158,6 @@ main h4 {
   font-size: 16px;
   color: #333;
   font-weight: 400;
-  font-family: 'Lato', sans-serif;
   font-size: 14px;
   line-height: 22px;
 
@@ -187,12 +194,17 @@ main h4 {
   background: #333;
   border-radius: 4px;
   cursor: pointer;
+  width: 100%;
 
 }
 
 .modalTransaction button:hover { 
   background: #333333d7;
 
+}
+
+.extractTransaction table {
+  border-collapse: collapse;
 }
 
 .extractTransaction table thead {
@@ -204,18 +216,20 @@ main h4 {
   padding: 6px 0;
 }
 
-.extractTransaction table tbody :is( .total, #totalValue) td {
-  border-top: 1px solid #979797;
-  padding: 6px 0;
-}
-
-.extractTransaction table tr {
-  border-bottom: 1px solid #979797;
-}
-
-.extractTransaction table tr :is( .total, #totalValue) {
-  border-top: 1px solid #979797;
+.extractTransaction table tr:last-child {
   border-bottom: none;
+}
+
+.extractTransaction table tr:first-child {
+  border-bottom: none;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+
+.extractTransaction table tr:last-child td {
+  border-bottom: none;
+  font-size: 14px;
   font-weight: 700;
 }
 
@@ -230,7 +244,39 @@ main h4 {
   border-bottom: 1px solid #979797;
 }
 
+
+@media (max-width: 1130px) {
+
+  header {
+    padding: 0 25px;
+  }
+
+  main .newTransaction {
+    margin-left: 20px;
+  }
+
+  main .extractTransaction {
+    margin-right: 20px;
+  }
+
+
+}
+
+
 @media (max-width: 768px) {
+
+  header{
+    display: block;
+    justify-content: initial;
+    align-items: initial;
+    height: 60px;
+  }
+
+  header .containerIcon {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
 
   #menu {
     position: absolute;
@@ -296,7 +342,12 @@ main h4 {
     width: inherit;
     display: flex;
     justify-content: space-between;
-    padding: 0 30px;
+    padding: 0 22px;
+  }
+
+  header .containerIcon img {
+    width: 30px;
+    height: 28px;
   }
   
   header .optionsMenu {
@@ -354,15 +405,15 @@ main h4 {
   }
 
   .modalTransaction .transactionContainerFields .typeTransaction {
-    width: 35%;
+    width: 150px;
   }
 
   .modalTransaction .transactionContainerFields .nameTransaction {
-    width: 40%;
+    width: 348px;
   }
 
   .modalTransaction .transactionContainerFields .valueTransaction {
-    width: 35%;
+    width: 150px;
   }
 
   .modalTransaction button {
@@ -373,7 +424,7 @@ main h4 {
 
 }
 
-@media (max-width: 411px) {
+@media (max-width: 610px) {
   
     #menu {
       position: absolute;
@@ -395,6 +446,7 @@ main h4 {
     margin: 0;
     justify-content: center;
     width: 100%;    
+    border-bottom: 1px solid #979797;
   }
  
   main .newTransaction .transactionContainerFields :is(.typeTransaction, .nameTransaction, .valueTransaction) {
@@ -410,6 +462,10 @@ main h4 {
     align-items: center;
     flex-direction: column;
     width: 100%;
+    height: 290px;
+    margin-bottom: 28px;
+    margin-right: 20px;
+    margin-left: 20px;
   }
 
   main .newTransaction h4 {
@@ -433,7 +489,7 @@ main h4 {
   }
 
   main .modalTransaction {
-    margin: 30px;
+    padding: 0;
   }
 
   main .modalTransaction label {
@@ -442,17 +498,24 @@ main h4 {
   }
 
   main .modalTransaction select {
-    width: 98%;
+    width: 100%;
   }
 
 
   main .modalTransaction input {
-    width: 98%;
+    width: 100%;
   }
 
   main .modalTransaction button {
-    width: 98%;
+    width: 100%;
     margin: 0;
+    height: 32px;
+  }
+
+  main .extractTransaction {
+    padding: 0;
+    margin: 44px 20px 0 20px;
+    
   }
 
   .modalTransaction .transactionContainerFields div {

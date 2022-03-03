@@ -38,13 +38,17 @@ export function validationFields() {
     }
 
 
-    let valueNumberFormatedNumber = String(valueTransaction)
+    let valueNumberFormatedNumber = valueTransaction
 
-    valueNumberFormatedNumber = valueNumberFormatedNumber.slice(2)
+    valueNumberFormatedNumber = String(valueNumberFormatedNumber.slice(2))
     
-    valueNumberFormatedNumber = valueNumberFormatedNumber.replace('.', '')
+    valueNumberFormatedNumber = valueNumberFormatedNumber.replace(/[#.]/g, '')
+
+    console.log(valueNumberFormatedNumber,'sem ponto')
 
     valueNumberFormatedNumber = valueNumberFormatedNumber.replace(',', '.')
+
+    console.log(valueNumberFormatedNumber)
 
     if(transactions) {
         updateTable(nameTransaction, valueNumberFormatedNumber, selectTransaction)
@@ -196,13 +200,22 @@ export async function setTableTransactions(allTransactions) {
 
     let totalTransaction = 0
 
-    await allTransactions.forEach(transaction => {
+    
+
+    await allTransactions.forEach((transaction, i) => {
+
+console.log(i)
+
+console.log(allTransactions.length - 1)
+
 
         if(transaction.type === '-') {
             totalTransaction -= Number(transaction.value)
         } else if(transaction.type === '+') {
             totalTransaction += Number(transaction.value)
         }
+
+        //tests
 
         const elementTr = document.createElement('tr')
 
@@ -212,8 +225,12 @@ export async function setTableTransactions(allTransactions) {
         elementTr.append(elementTdName)
         elementTr.append(elementTdValue)
 
-        elementTdName.innerHTML = transaction.name
-        elementTdValue.innerHTML = transaction.type + " " + transaction.value.toLocaleString('pt-BR', {minimumFractionDigits: 2})
+        if( 0 === i){
+            elementTr.style.borderBottomStyle='double'
+        }
+
+        elementTdName.innerHTML = transaction.type + "&nbsp;&nbsp;&nbsp;" + transaction.name
+        elementTdValue.innerHTML = mascaraMoeda(transaction.value)
 
         tbodyTable.prepend(elementTr)
 
@@ -228,6 +245,24 @@ export async function setTableTransactions(allTransactions) {
         textTotalValue.innerHTML = ''
     }
 
-    tdTotalValue.prepend(totalTransaction.toLocaleString('pt-BR', {minimumFractionDigits: 2}))    
+    tdTotalValue.prepend(totalTransaction.toLocaleString('pt-BR', {minimumFractionDigits: 2, style: 'currency', currency: 'BRL'}))    
+
+}
+
+function mascaraMoeda(valorMoeda) {
+    const onlyDigits = valorMoeda
+      .split("")
+      .filter(s => /\d/.test(s))
+      .join("")
+      .padStart(3, "0")
+    const digitsFloat = onlyDigits.slice(0, -2) + "." + onlyDigits.slice(-2)
+    return maskCurrency(digitsFloat)
+  }
+  
+  function maskCurrency(valor, locale = 'pt-BR', currency = 'BRL') {
+    return new Intl.NumberFormat(locale, {
+      style: 'currency',
+      currency
+    }).format(valor)
 
 }
