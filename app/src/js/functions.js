@@ -2,6 +2,7 @@ let transactions = null
 let transactionsFields = []
 
 const tbodyTable = document.getElementById('transactionTable')
+const trTotalTable = document.getElementById('totalTable')
 const tdTotalValue = document.getElementById('totalValue')
 const textTotalValue = document.getElementById('totalValueText')
 
@@ -37,6 +38,8 @@ export function validationFields() {
         return;
     }
 
+    document.querySelector('.nameTransaction').querySelector('input').value = ''
+    document.querySelector('.valueTransaction').querySelector('input').value = ''
 
     let valueNumberFormatedNumber = valueTransaction
 
@@ -101,7 +104,10 @@ export async function insertTable(name, value, type) {
     })
     .then(json => console.log(json))
 
-    location.reload();
+    await getApiListTransaction();
+
+    showHideEmptyTable(false)
+
 }
 
 export async function deleteTable() {
@@ -137,7 +143,9 @@ export async function deleteTable() {
     })
     .then(json => console.log(json))
 
-    location.reload();
+    transactionsFields = []
+
+    getApiListTransaction();
     }
 }
 
@@ -172,7 +180,9 @@ export async function updateTable(name, value, type) {
     })
     .then(json => console.log(json))
 
-    location.reload();
+    getApiListTransaction();
+
+    showHideEmptyTable(false)
 }
 
 export async function getApiListTransaction() {
@@ -188,34 +198,32 @@ export async function getApiListTransaction() {
  return response.json()
 }).then(json => transactions =  json.records[0])
 
-transactionsFields = JSON.parse(transactions.fields.Json)
-
-
-setTableTransactions(transactionsFields)
-
+if(transactions.fields.Json){
+    transactionsFields = JSON.parse(transactions.fields.Json)
+    setTableTransactions(transactionsFields)
+} else {
+    showHideEmptyTable(true)
+}
 
 }
 
 export async function setTableTransactions(allTransactions) {
 
+    const trAux = trTotalTable;
+
+    tbodyTable.innerHTML = ''
+
+    tbodyTable.append(trAux)
+
     let totalTransaction = 0
 
-    
-
     await allTransactions.forEach((transaction, i) => {
-
-console.log(i)
-
-console.log(allTransactions.length - 1)
-
 
         if(transaction.type === '-') {
             totalTransaction -= Number(transaction.value)
         } else if(transaction.type === '+') {
             totalTransaction += Number(transaction.value)
         }
-
-        //tests
 
         const elementTr = document.createElement('tr')
 
@@ -225,18 +233,18 @@ console.log(allTransactions.length - 1)
         elementTr.append(elementTdName)
         elementTr.append(elementTdValue)
 
-        if( 0 === i){
+        if(i === 0){
             elementTr.style.borderBottomStyle='double'
         }
 
         elementTdName.innerHTML = transaction.type + "&nbsp;&nbsp;&nbsp;" + transaction.name
-        elementTdValue.innerHTML = mascaraMoeda(transaction.value)
+        elementTdValue.innerHTML = applyMask(transaction.value)
 
         tbodyTable.prepend(elementTr)
-
     });
 
 
+    console.log(totalTransaction)
     if(totalTransaction < 0){
         textTotalValue.innerHTML = '[PREJUÍZO]'
     } else if(totalTransaction > 0) {
@@ -245,11 +253,12 @@ console.log(allTransactions.length - 1)
         textTotalValue.innerHTML = ''
     }
 
-    tdTotalValue.prepend(totalTransaction.toLocaleString('pt-BR', {minimumFractionDigits: 2, style: 'currency', currency: 'BRL'}))    
+    tdTotalValue.innerHTML = (totalTransaction.toLocaleString('pt-BR', {minimumFractionDigits: 2, style: 'currency', currency: 'BRL'}))
+    tdTotalValue.append(textTotalValue)
 
 }
 
-function mascaraMoeda(valorMoeda) {
+function applyMask(valorMoeda) {
     const onlyDigits = valorMoeda
       .split("")
       .filter(s => /\d/.test(s))
@@ -259,10 +268,21 @@ function mascaraMoeda(valorMoeda) {
     return maskCurrency(digitsFloat)
   }
   
-  function maskCurrency(valor, locale = 'pt-BR', currency = 'BRL') {
+function maskCurrency(valor, locale = 'pt-BR', currency = 'BRL') {
     return new Intl.NumberFormat(locale, {
       style: 'currency',
       currency
     }).format(valor)
 
+}
+
+function showHideEmptyTable(hideTable) {
+    if(hideTable === true) {
+        document.querySelector('.extractTransaction').querySelector('table').style.display = 'none'
+        document.querySelector('.extractTransaction').querySelector('h2').style.display = 'flex'
+    } else {
+        document.querySelector('.extractTransaction').querySelector('table').style.display = 'table'
+        document.querySelector('.extractTransaction').querySelector('h2').style.display = 'none'
+    }
+    
 }
